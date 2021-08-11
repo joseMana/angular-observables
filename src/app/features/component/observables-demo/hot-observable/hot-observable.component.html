@@ -1,0 +1,23 @@
+
+<div class="card text-center" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Hot Observable</h5>
+    <div class="card-text">
+      <div style="font-weight: bold;">Current Counter: </div>
+      <div>{{counter}}</div>
+      <div style="font-weight: bold;">Count From Subscription: </div>
+      <div>{{countToDisplay}}</div>
+      <div style="font-weight: bold;">Current Message:</div>
+      <div>{{messageToDisplay}}</div>
+      <div style="font-weight: bold;">Async Pipe:</div>
+      <div>{{hotObservable$ | async}}</div>
+    </div>
+    <button href="#" class="btn btn-primary w-100 mt-3" [disabled]="!!hotObservable$" (click)="createHotObservable(null)">Create Subject</button>
+    <button href="#" class="btn btn-primary w-100 mt-3" [disabled]="!!hotObservable$" (click)="createHotObservable(2)">Create BehaviorSubject</button>
+    <button href="#" class="btn btn-primary w-100 mt-3" [disabled]="!!subscription || !hotObservable$" (click)="subscribeToHotObservable()">Subscribe</button>
+    <button href="#" class="btn btn-primary w-100 mt-3" [disabled]="!subscription || !hotObservable$ || isErrorOrCompleted" (click)="markAsError()">Error</button>
+    <button href="#" class="btn btn-primary w-100 mt-3" [disabled]="!subscription || !hotObservable$ || isErrorOrCompleted" (click)="markAsCompleted()">Complete</button>
+    <button href="#" class="btn btn-primary w-100 mt-3" (click)="incrementCount()">Increment Count</button>
+    <button href="#" class="btn btn-primary w-100 mt-3" (click)="reset()">Reset</button>
+  </div>
+</div>

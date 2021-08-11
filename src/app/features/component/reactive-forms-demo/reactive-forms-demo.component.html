@@ -1,0 +1,142 @@
+<div class="topic-card">
+  <div class="topic-header">Reactive Forms</div>
+  <div class="topic-content">
+    <h4 class="mb-3">User Registration Form</h4>
+    <form [formGroup]="myForm" #myFormDirective="ngForm" (ngSubmit)="myForm.valid && onSubmit(myFormDirective)">
+      <!-- NAME -->
+      <div class="form-group row">
+        <div class="col-2">
+          <label class="control-label">Name:</label>
+        </div>
+        <div class="col-9">
+          <input class="form-control" type="text" autocomplete="off" placeholder="Enter your name"
+            formControlName="name">
+          <span class="text-danger" *ngIf="name?.invalid && name?.errors?.required && (name?.dirty || name?.touched)">
+            Name is required
+          </span>
+        </div>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="form-group row">
+        <div class="col-2">
+          <label class="control-label">Email:</label>
+        </div>
+        <div class="col-9">
+          <input class="form-control" type="text" autocomplete="off" placeholder="Enter your email address"
+            formControlName="email">
+          <span class="text-danger"
+            *ngIf="email?.invalid && email?.errors?.required && (email?.dirty || email?.touched)">
+            Email is required
+          </span>
+          <span class="text-danger"
+            *ngIf="email?.invalid && email?.errors?.pattern && (email?.dirty || email?.touched)">
+            Invalid email format
+          </span>
+        </div>
+      </div>
+
+      <!-- COMPANY -->
+      <div class="form-group row">
+        <div class="col-2">
+          <label class="control-label">Company:</label>
+        </div>
+        <div class="col-9">
+          <input class="form-control" type="text" autocomplete="off" placeholder="Enter your company name"
+            formControlName="company">
+        </div>
+      </div>
+
+      <!-- AGE -->
+      <div class="form-group row">
+        <div class="col-2">
+          <label class="control-label">Age:</label>
+        </div>
+        <div class="col-9">
+          <input class="form-control" type="number" autocomplete="off" placeholder="Enter your age"
+            formControlName="age">
+
+          <span class="text-danger" *ngIf="age?.invalid && age?.errors?.ageValidator && (age?.dirty || age?.touched)">
+            {{age?.errors?.ageValidator}}
+          </span>
+        </div>
+      </div>
+
+      <!-- PHONE -->
+      <div class="form-group row">
+        <div class="col-2">
+          <label class="control-label">Phone:</label>
+        </div>
+        <div class="col-9">
+          <input class="form-control" type="text" autocomplete="off" placeholder="Enter your contact number"
+            formControlName="phone">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <!-- LOCATION -->
+        <div class="col-2">
+          <label class="control-label">Location:</label>
+        </div>
+        <div class="col-4">
+          <select class="form-control" formControlName="location">
+            <option value="Cavite">Cavite</option>
+            <option value="Laguna">Laguna</option>
+            <option value="Metro Manila">Metro Manila</option>
+          </select>
+        </div>
+        <!-- GENDER -->
+        <div class="col-2">
+          <label class="control-label">Gender:</label>
+        </div>
+        <div class="col-3 rdb-options">
+          <input class="form-check-input" type="radio" value="male" id="rdbMale" formControlName="gender">
+          <label class="form-check-label rdb-label" for="rdbMale">Male</label>
+          <input class="form-check-input" type="radio" value="female" id="rdbFemale" formControlName="gender">
+          <label class="form-check-label rdb-label" for="rdbFemale">Female</label>
+          <input type="checkbox" formControlName="isTest"> Test
+        </div>
+      </div>
+
+      <div class="row mb-3 mt-3 align-items-center">
+        <h4 class="w-auto m-0">Aliases</h4>
+        <button type="button" class="btn btn-primary w-auto" (click)="addAlias()">Add</button>
+        <span class="text-danger"
+          *ngIf="aliases?.invalid && aliases?.errors?.duplicate && (aliases?.dirty || aliases?.touched)">
+          Duplicate Alias found!
+        </span>
+      </div>
+
+      <ng-container formArrayName="aliases">
+        <ng-container *ngFor="let alias of aliases?.controls; let i = index">
+          <div class="form-group row">
+            <div class="col-2">
+              <label class="control-label">Alias {{i + 1}}:</label>
+            </div>
+            <div class="col-7">
+              <input class="form-control" type="text" autocomplete="off" placeholder="Enter alias"
+                [formControlName]="i">
+      
+              <span class="text-danger"
+                *ngIf="alias?.invalid && alias?.errors?.required && (alias?.dirty || alias?.touched)">
+                Alias {{i + 1}} is required
+              </span>
+            </div>
+            <div class="col-2">
+              <button (click)="removeAlias(i)">Remove</button>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <!-- BUTTONS -->
+      <div class="btn-form-container">
+        <button class="btn btn-primary btn-form-control" [disabled]="myForm.invalid" type="submit">Submit</button>
+        <button class="btn btn-warning btn-form-control" type="reset">Reset</button>
+      </div>
+
+    </form>
+
+    <pre>{{ myForm?.value | json }}</pre>
+  </div>
+</div>

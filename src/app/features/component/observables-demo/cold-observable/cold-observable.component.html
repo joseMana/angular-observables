@@ -1,0 +1,16 @@
+
+<div class="card text-center" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Cold Observable</h5>
+    <div class="card-text">
+      <div style="font-weight: bold;">Current Count: </div>
+      <div>{{countToDisplay}}</div>
+      <div style="font-weight: bold;">Current Message:</div>
+      <div>{{messageToDisplay}}</div>
+    </div>
+    <button href="#" class="btn btn-primary w-100 mt-3" [disabled]="!!coldObservable$" (click)="startColdObservable(true)">Create Completed</button>
+    <button href="#" class="btn btn-primary w-100 mt-3" [disabled]="!!coldObservable$" (click)="startColdObservable(false)">Create Error</button>
+    <button href="#" class="btn btn-primary w-100 mt-3" [disabled]="!!subscription || !coldObservable$" (click)="subscribeToColdObservable()">Subscribe</button>
+    <button href="#" class="btn btn-primary w-100 mt-3" (click)="reset()">Reset</button>
+  </div>
+</div>
